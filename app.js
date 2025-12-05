@@ -5,9 +5,23 @@ const app = express();
 // Middleware pour parser le JSON
 app.use(express.json());
 
+let users = [];
+
 // Exemple de route GET
-app.get('/', (req, res) => {
-  res.send('Hello World ! Backend is ready.');
+app.get('/users', (req, res) => {
+  res.json(users);
+});
+
+app.post("/users", (req, res) =>{
+  const newUser = {
+    id: users.length +1,
+    name: req.body.name,
+    age: req.body.age
+  };
+
+  users.push(newUser);
+  res.status(201).json(newUser);
+
 });
 
 // Exemple route POST
